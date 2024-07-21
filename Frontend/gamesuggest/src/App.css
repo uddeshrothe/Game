@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Edu+AU+VIC+WA+NT+Hand:wght@400..700&display=swap');
+
 .App {
   text-align: center;
 }
@@ -14,14 +16,14 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #c6cad4;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: black;
 }
 
 .App-link {
@@ -36,3 +38,88 @@
     transform: rotate(360deg);
   }
 }
+h1{
+  font-family: "Edu AU VIC WA NT Hand", cursive;
+  font-weight: 800px;
+  margin: 50px;
+  font-size: 200%;
+}
+.form__field {
+  width: 360px;
+  background: #fff;
+  color: #a3a3a3;
+  font: inherit;
+  box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.1);
+  border: 0;
+  outline: 0;
+  border-radius: 50px;
+  padding: 15px 18px;
+  height: 70px;
+}
+.uppercase {
+  text-transform: uppercase;
+}
+.btn {
+  display: inline-block;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  border: 0;
+  outline: 0;
+  transition: all 200ms ease-in;
+  cursor: pointer;
+  margin-bottom: 8px;
+}
+.btn--primary {
+  background: #7f8ff4;
+  color: #fff;
+  box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.1);
+  border-radius: 50px;
+  padding: 15px 36px;
+}
+.btn--primary:hover {
+  background: #6c7ff2;
+}
+.btn--primary:active {
+  background: #7f8ff4;
+  box-shadow: inset 0 0 10px 2px rgba(0, 0, 0, 0.2);
+}
+.btn--inside {
+  margin-left: -50px;
+}
+.container{
+  display: flex;
+  flex-direction: column;
+}
+
+.list-container{
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px;
+  display: grid;
+  text-align: start;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.custom-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0 auto;
+  width: max-content;
+}
+
+.list-index {
+  max-width: 1000px;
+  margin: 10px auto;
+  padding: 5px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  border-radius: 10px;
+  justify-content: center;
+}
+
+.game-image{
+  width: 100%;
+  height: 250px; /* Set the desired height */
+  object-fit: cover;
+}
+
