@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { getGames, getSimilarGames } from '../services/gameservice.js';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faStar, faStarHalfAlt,  } from '@fortawesome/free-solid-svg-icons'
+import {faStar as faStarEmpty} from '@fortawesome/free-regular-svg-icons'
+
 
 const GameList = () => {
     const [games, setGames] = useState([]);
@@ -45,6 +49,19 @@ const GameList = () => {
         }
     };
 
+    const renderStars = (rating) => {
+        const fullStars = Math.floor(rating);
+        const hasHalfStar = rating - fullStars >= 0.5;
+        const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+
+        return (
+            <>
+                {Array(fullStars).fill(<FontAwesomeIcon icon={faStar} className="star-icon" />)}
+                {hasHalfStar && <FontAwesomeIcon icon={faStarHalfAlt} className="star-icon" />}
+                {Array(emptyStars).fill(<FontAwesomeIcon icon={faStarEmpty} className="star-icon" />)}
+            </>
+        );
+    };
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>{error}</p>;
@@ -72,7 +89,7 @@ const GameList = () => {
                                     <Card.Img variant="top" class="game-image" src={game.background_image} alt={game.name} />
                                     <Card.Body>
                                         <Card.Title>{game.name}</Card.Title>
-                                        <Card.Text>{game.description}</Card.Text>
+                                        <Card.Text>{renderStars(game.rating)}</Card.Text>
                                         <Button variant="primary">View Details</Button>
                                     </Card.Body>
                                 </Card>

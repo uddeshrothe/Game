@@ -44,6 +44,12 @@ h1{
   margin: 50px;
   font-size: 200%;
 }
+
+.star-icon {
+  color: gold;
+  margin-right: 2px;
+}
+
 .form__field {
   width: 360px;
   background: #fff;
