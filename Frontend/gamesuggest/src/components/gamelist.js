@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getGames, getSearchGames, getSimilarGames } from '../services/gameservice.js';
+import { getGames, getSimilarGames } from '../services/gameservice.js';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
