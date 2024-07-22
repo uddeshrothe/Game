@@ -27,23 +27,6 @@ const GameList = () => {
         fetchGames();
     }, []);
 
-    //For searching games
-    // const handleSearch = async (e) => {
-    //     e.preventDefault();
-    //     setLoading(true);
-    //     try {
-    //         const response = await getSearchGames({
-    //             params: { query: searchQuery },
-    //         })
-    //         setGames(response.data.results);
-    //         setLoading(false);
-    //     } catch (error) {
-    //         console.error('Error searching for games:', error);
-    //         setError('Error searching for games');
-    //         setLoading(false);
-    //     }
-    // };
-
     const handleSearchForSimilarGames = async (e) => {
         e.preventDefault();
         setLoading(true);
