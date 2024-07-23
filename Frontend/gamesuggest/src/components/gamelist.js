@@ -4,8 +4,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faStar, faStarHalfAlt,  } from '@fortawesome/free-solid-svg-icons'
-import {faStar as faStarEmpty} from '@fortawesome/free-regular-svg-icons'
+import { faStar, faStarHalfAlt, } from '@fortawesome/free-solid-svg-icons'
+import { faStar as faStarEmpty } from '@fortawesome/free-regular-svg-icons'
 
 
 const GameList = () => {
@@ -15,6 +15,8 @@ const GameList = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const [similarGames, setSimilarGames] = useState([]);
     const [isSearchComplete, setIsSearchComplete] = useState(false);
+    const [startDate, setStartDate] = useState('');
+    const [endDate, setEndDate] = useState('');
 
     useEffect(() => {
         const fetchGames = async () => {
@@ -34,11 +36,12 @@ const GameList = () => {
     const handleSearchForSimilarGames = async (e) => {
         e.preventDefault();
         setLoading(true);
+        const today = new Date().toISOString().split('T')[0];
+        const end = endDate || today;
+        const start = startDate || '2001-01-01'
         setIsSearchComplete(false);
         try {
-            const response = await getSimilarGames({
-                params: { query: searchQuery },
-            });
+            const response = await getSimilarGames(searchQuery, start, end);
             setSimilarGames(response.data);
             setIsSearchComplete(true);
             setLoading(false);
@@ -68,7 +71,7 @@ const GameList = () => {
 
     return (
         <div class='container'>
-            <h1>Game Suggest</h1>
+            <h1>Game Finder</h1>
             <form onSubmit={handleSearchForSimilarGames}>
                 <input
                     type="text"
@@ -78,6 +81,23 @@ const GameList = () => {
                     placeholder="Find your next adventure"
                 />
                 <button type="submit" class='btn btn--primary btn--inside uppercase'>Search</button>
+                <div>
+                    <input
+                        type="date"
+                        value={startDate}
+                        class="form__field date"
+                        onChange={(e) => setStartDate(e.target.value)}
+                        placeholder="Start Date"
+                    />
+                    <input
+                        type="date"
+                        value={endDate}
+                        class="form__field date"
+                        onChange={(e) => setEndDate(e.target.value)}
+                        placeholder="End Date"
+                    />
+                </div>
+
             </form>
             {isSearchComplete && similarGames.length > 0 && (
                 <>

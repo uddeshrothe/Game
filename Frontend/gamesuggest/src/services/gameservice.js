@@ -12,9 +12,15 @@ export const getGames = async () => {
     }
 };
 
-export const getSimilarGames = async (searchQuery) => {
+export const getSimilarGames = async (searchQuery, startDate, endDate) => {
     try {
-        const response = await axios.get(API_URL + '/similar-games', searchQuery)
+        const response = await axios.get(API_URL + '/similar-games', {
+            params: {
+              query: searchQuery,
+              startDate: startDate,
+              endDate: endDate,
+            },
+          });
         return response;
     } catch (error) {
         console.error('There was a problem with the fetch operation:', error);

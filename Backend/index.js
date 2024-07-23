@@ -54,7 +54,7 @@ app.get('/games', async (req, res) => {
 // });
 
 app.get('/similar-games', async (req, res) => {
-    const { query } = req.query;
+  const { query, startDate, endDate } = req.query;
     try {
       const response = await axios.get(`https://api.rawg.io/api/games`, {
         params: {
@@ -69,7 +69,8 @@ app.get('/similar-games', async (req, res) => {
           params: {
             key: RAWG_API_KEY,
             genres: genre,
-            ordering:'-rating'
+            ordering: '-rating',
+            dates:`${startDate},${endDate}`
           },
         });
           const results = similarGamesResponse.data.results;
