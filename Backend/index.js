@@ -34,25 +34,6 @@ app.get('/games', async (req, res) => {
     }
 });
 
-// Endpoint to get a list of games
-// app.get('/search', async (req, res) => {
-//     const { query } = req.query
-//     try {
-//         const response = await axios.get('https://api.rawg.io/api/games', {
-//             params: {
-//                 key: RAWG_API_KEY,
-//                 search: query
-//             },
-//         });
-//         // Extract names from the response
-//         //const gameNames = response.data.results.map(game => game.name);
-//         res.json(response.data);
-//     } catch (error) {
-//         console.error('Error fetching games:', error);
-//         res.status(500).json({ error: 'Error fetching games' });
-//     }
-// });
-
 app.get('/similar-games', async (req, res) => {
   const { query, startDate, endDate } = req.query;
     try {
