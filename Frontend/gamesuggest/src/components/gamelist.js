@@ -17,6 +17,7 @@ const GameList = () => {
     const [isSearchComplete, setIsSearchComplete] = useState(false);
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
+    const [genre, setGenre] = useState('')
 
     useEffect(() => {
         const fetchGames = async () => {
@@ -41,8 +42,9 @@ const GameList = () => {
         const start = startDate || '2001-01-01'
         setIsSearchComplete(false);
         try {
-            const response = await getSimilarGames(searchQuery, start, end);
-            setSimilarGames(response.data);
+            const response = await getSimilarGames(searchQuery, start, end, rating);
+            const filteredSimilarGames = response.data.filter(game => !game.genres.some(genre => genre.name.toLowerCase() === 'adult'));
+            setSimilarGames(filteredSimilarGames);
             setIsSearchComplete(true);
             setLoading(false);
         } catch (error) {
