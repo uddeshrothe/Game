@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getGames, getSimilarGames } from '../services/gameservice.js';
+import { getGames, getSimilarGames,getGenres } from '../services/gameservice.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
@@ -10,13 +10,15 @@ import { faStar as faStarEmpty } from '@fortawesome/free-regular-svg-icons'
 
 const GameList = () => {
     const [games, setGames] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [searchQuery, setSearchQuery] = useState('');
     const [similarGames, setSimilarGames] = useState([]);
     const [isSearchComplete, setIsSearchComplete] = useState(false);
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
+    const [genres, setGenres] = useState('')
+    const [selectGenre, setSelectGenre] = useState('')
 
     useEffect(() => {
         const fetchGames = async () => {
@@ -30,8 +32,21 @@ const GameList = () => {
             }
         };
 
+        const fetchGenres = async () => {
+            try {
+                const response = await getGenres()
+                setGenres(response.data.results);
+            } catch (error) {
+                console.error('Error fetching genres:', error);
+                setError('Error fetching genres');
+            }
+        };
+
+        fetchGenres()
         fetchGames();
     }, []);
+
+   
 
     const handleSearchForSimilarGames = async (e) => {
         e.preventDefault();
@@ -41,7 +56,7 @@ const GameList = () => {
         const start = startDate || '2001-01-01'
         setIsSearchComplete(false);
         try {
-            const response = await getSimilarGames(searchQuery, start, end);
+            const response = await getSimilarGames(searchQuery, start, end, selectGenre);
             const filteredSimilarGames = response.data.filter(game => !game.genres.some(genre => genre.name.toLowerCase() === 'adult'));
             setSimilarGames(filteredSimilarGames);
             setIsSearchComplete(true);
@@ -66,7 +81,7 @@ const GameList = () => {
             </>
         );
     };
-
+    
     if (loading) return <p>Loading...</p>;
     if (error) return <p>{error}</p>;
 
@@ -97,6 +112,16 @@ const GameList = () => {
                         onChange={(e) => setEndDate(e.target.value)}
                         placeholder="End Date"
                     />
+                    <select
+                        value={selectGenre}
+                        onChange={(e) => setSelectGenre(e.target.value)}
+                        className="form__field"
+                    >
+                        <option value="">Select Genre</option>
+                        {genres && genres.map((genre) => (
+                            <option key={genre.id} value={genre.slug}>{genre.name}</option>
+                        ))}
+                    </select>
                 </div>
 
             </form>
