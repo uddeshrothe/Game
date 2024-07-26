@@ -22,14 +22,14 @@ export const getGenres = async () => {
     }
 };
 
-export const getSimilarGames = async (searchQuery, startDate, endDate, genres) => {
+export const getSimilarGames = async (searchQuery, startDate, endDate, genre) => {
     try {
         const response = await axios.get(API_URL + '/similar-games', {
             params: {
                 query: searchQuery,
                 startDate: startDate,
                 endDate: endDate,
-                genres: genres
+                genre: genre
             },
         });
         return response;

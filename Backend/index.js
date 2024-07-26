@@ -52,7 +52,7 @@ app.get('/genres', async (req, res) => {
 });
 
 app.get('/similar-games', async (req, res) => {
-  const { query, startDate, endDate, genres } = req.query;
+  const { query, startDate, endDate, genre } = req.query;
   try {
     const response = await axios.get(`https://api.rawg.io/api/games`, {
       params: {
@@ -67,17 +67,10 @@ app.get('/similar-games', async (req, res) => {
       return res.status(404).json({ error: 'Game not found' });
     }
 
-    // Extract relevant genres and tags
-    const genres = gameDetails.genres.map(genre => genre.slug).join(',');
     const tags = gameDetails.tags.map(tag => tag.slug).sort().join(',');
 
-    console.log(genres)
-    console.log(tags)
-
     if (response.data.results.length > 0) {
-      const selectedGenre = genres || response.data.results[0].genres[0].slug;
-      console.log(genres)
-      console.log(selectedGenre)
+      const selectedGenre = genre || response.data.results[0].genres[0].slug;
       const similarGamesResponse = await axios.get(`https://api.rawg.io/api/games`, {
         params: {
           key: RAWG_API_KEY,
