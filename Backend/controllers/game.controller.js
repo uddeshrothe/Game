@@ -2,6 +2,7 @@ require('dotenv').config()
 const RAWG_API_KEY = process.env.RAWG_API_KEY;
 const axios = require('axios')
 
+// To fetch games list from RAWG API
 const getGames = async (req, res) => {
     const { query } = req.query
     try {
@@ -18,6 +19,7 @@ const getGames = async (req, res) => {
     }
 }
 
+// To fetch game genres from RAWG API
 const getGameGenres = async (req, res) => {
     try {
         const response = await axios.get('https://api.rawg.io/api/genres', {
@@ -32,6 +34,7 @@ const getGameGenres = async (req, res) => {
     }
 }
 
+// To fetch similar games list from RAWG API
 const getSimilarGames = async (req, res) => {
     const { query, startDate, endDate, genre } = req.query;
     try {

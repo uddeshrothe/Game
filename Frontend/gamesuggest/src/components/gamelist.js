@@ -21,6 +21,7 @@ const GameList = () => {
     const [selectGenre, setSelectGenre] = useState('')
 
     useEffect(() => {
+        // To fetch the list of games
         const fetchGames = async () => {
             try {
                 const response = await getGames()
@@ -47,7 +48,7 @@ const GameList = () => {
     }, []);
 
    
-
+    // To get similar games as per search term or genre
     const handleSearchForSimilarGames = async (e) => {
         e.preventDefault();
         setLoading(true);
@@ -68,6 +69,7 @@ const GameList = () => {
         }
     };
 
+    // To generate stars as per the game rating
     const renderStars = (rating) => {
         const fullStars = Math.floor(rating);
         const hasHalfStar = rating - fullStars >= 0.5;

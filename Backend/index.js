@@ -16,6 +16,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json())
 
+// routes for the app
 app.use('/api', gameRoute)
 
 app.listen(5000, () => {
